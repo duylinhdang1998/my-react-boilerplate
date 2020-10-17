@@ -1,8 +1,9 @@
 import React from 'react';
 import { View } from 'react-native';
 import HomeScreen from '@containers/Home/HomeScreen';
-import ThemeProvider from '@shared/ThemeContext/ThemeContext';
 import configureApp from '@utils/constants/configureApp';
+import { ThemeProvider } from '@shared';
+import { lights } from '@utils/constants/base';
 
 export default function AppContent() {
   return (
@@ -10,6 +11,7 @@ export default function AppContent() {
       themeOverrides={{
         colors: {
           primary: configureApp?.settings?.colorPrimary,
+          ...lights,
         },
       }}>
       <View style={{ flex: 1, borderColor: 'red', borderWidth: 5, justifyContent: 'center', alignItems: 'center' }}>

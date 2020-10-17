@@ -5,6 +5,7 @@ import { colors as defaultColors } from '@utils/constants/colors';
 import defaultSize from '@utils/constants/sizes';
 
 export type ColorTypes = typeof defaultColors;
+export type Color = keyof ColorTypes;
 export type SizeTypes = typeof defaultSize;
 
 export interface ThemeOverrides {
@@ -25,7 +26,7 @@ export type Theme = typeof defaultTheme;
 
 const ThemeContext = createContext(defaultTheme);
 
-export default function ThemeProvider({ themeOverrides = defaultTheme, children }: ThemeProviderProps) {
+export function ThemeProvider({ themeOverrides = defaultTheme, children }: ThemeProviderProps) {
   const colors = { ...defaultColors, ...themeOverrides.colors };
   const size = { ...defaultSize, ...themeOverrides.size };
 

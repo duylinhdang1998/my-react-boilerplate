@@ -1,3 +1,4 @@
+import { Icons } from '@shared';
 import { useTheme } from '@shared/ThemeContext/ThemeContext';
 import React from 'react';
 import { View, Text, Button, Image } from 'react-native';
@@ -15,6 +16,7 @@ export default function HomeScreen() {
     <View>
       <Button title="Get TodoList" onPress={handleGetTodolist} />
       <Text>{JSON.stringify(todolist)}</Text>
+      <Icons.Feather name="activity" size={28} color="facebook" />
     </View>
   );
 }
