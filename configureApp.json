@@ -1,0 +1,11 @@
+{
+  "api": {
+    "baseUrl": "https://5abe1d53d4c5900014949e9c.mockapi.io/api",
+    "timeout": 30000
+  },
+  "settings": {
+    "youtubeKey": "AIzaSyDxJaU8bLdx7sSJ8fcRdhYS1pLk8Jdvnx0",
+    "colorPrimary": "#ff3e3c",
+    "applicationUpdateMessage": "Our application has released new version including bug fixes and functional updates. We recommend that you upgrade to have the best experience."
+  }
+}

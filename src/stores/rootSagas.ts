@@ -1,7 +1,7 @@
 import { all, call, delay, spawn } from 'redux-saga/effects';
-import sagaCounter from 'containers/Home/sagas/sagaCounter';
+import sagasHome from '@containers/Home/sagas/sagaHome';
 
-const sagas = [...sagaCounter];
+const sagas = [...sagasHome];
 
 const makeRestartable = (saga: any) => {
   return function* () {

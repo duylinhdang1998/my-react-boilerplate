@@ -1,12 +1,13 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import { incrementCounter } from '../slices/counterSlice';
 
-function* incrementAsync() {
-  yield put(incrementCounter({ step: 1 }));
+function* incrementAsync({ payload }: ReturnType<typeof incrementCounter>) {
+  console.log({ payload });
+  // yield put(incrementCounter({ step: payload.step }));
 }
 
 function* watchIncrementAsync() {
-  yield takeLatest('INCREMENT_COUNTER', incrementAsync);
+  yield takeLatest(incrementCounter, incrementAsync);
 }
 
 export default watchIncrementAsync;

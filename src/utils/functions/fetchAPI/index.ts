@@ -1,57 +1,58 @@
-// import qs from 'qs';
-// import { CANCEL } from 'redux-saga';
-// import configureApp from 'utils/constants/configureApp';
-// import { store } from 'store/configureStore';
-// import ConfigureAxios from './ConfigureAxios';
-// import { refreshToken as updateToken, logout } from 'containers/Auth/actions/actionAuth';
-// import { alertMessageWithOption } from 'components/ModalLogin/utils/alertMessage';
-// import i18n from '../i18n';
-// import { onOpenModalLogin } from 'components/ModalLogin/ModalLogin';
+import configureApp from '@utils/constants/configureApp';
+import qs from 'qs';
+import { CANCEL } from 'redux-saga';
+import { store } from '@stores/configureStore';
+import ConfigureAxios from './ConfigureAxios';
 
-// interface RefreshTokenResponseData {
-//   data: {
-//     accessToken: string;
-//   };
-// }
+interface RefreshTokenResponseData {
+  data: {
+    accessToken: string;
+  };
+}
 
-// interface AxiosData {
-//   refreshToken: string;
-//   accessToken: string;
-// }
+interface AxiosData {
+  refreshToken: string;
+  accessToken: string;
+}
 
-// const axiosConfig = new ConfigureAxios({
-//   configure: {
-//     method: 'GET',
-//     baseURL: configureApp.api.baseUrl,
-//     timeout: configureApp.api.timeout,
-//     paramsSerializer: qs.stringify,
-//   },
-//   setAccessToken() {
-//     if (!store) {
-//       return '';
-//     }
-//     const { auth } = store.getState();
-//     return auth.isLoggedIn ? auth.data.accessToken : '';
-//   },
-//   setRefreshToken() {
-//     if (!store) {
-//       return '';
-//     }
-//     const { auth } = store.getState();
-//     return auth.isLoggedIn ? auth.data.refreshToken : '';
-//   },
-// });
+const axiosConfig = new ConfigureAxios({
+  configure: {
+    method: 'GET',
+    baseURL: configureApp.api.baseUrl,
+    timeout: configureApp.api.timeout,
+    paramsSerializer: qs.stringify,
+  },
+  setAccessToken() {
+    if (!store) {
+      return '';
+    }
+    return 'lotus lms';
 
-// const fetchAPI = axiosConfig.create();
+    //get accessToken from redux
+    // const { auth } = store.getState();
+    // return auth.isLoggedIn ? auth.data.accessToken : '';
+  },
+  setRefreshToken() {
+    if (!store) {
+      return '';
+    }
+    return 'lotus lms';
+    // Get refresh token
+    // const { auth } = store.getState();
+    // return auth.isLoggedIn ? auth.data.refreshToken : '';
+  },
+});
 
-// axiosConfig.sagaCancelAxiosRequest(CANCEL);
+const fetchAPI = axiosConfig.create();
 
-// axiosConfig.accessToken({
-//   setCondition(config) {
-//     const isAppURL = config?.url?.search(/^http/g) === -1;
-//     return isAppURL;
-//   },
-// });
+axiosConfig.sagaCancelAxiosRequest(CANCEL);
+
+axiosConfig.accessToken({
+  setCondition(config) {
+    const isAppURL = config?.url?.search(/^http/g) === -1;
+    return isAppURL;
+  },
+});
 
 // axiosConfig.refreshToken<RefreshTokenResponseData, AxiosData>({
 //   url: 'jwt/renew-access-token',
@@ -79,4 +80,4 @@
 //   },
 // });
 
-// export default fetchAPI;
+export default fetchAPI;
