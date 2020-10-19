@@ -1,5 +1,4 @@
 import React, { createContext, ReactNode, useContext } from 'react';
-import { ImageStyle, TextStyle, ViewStyle } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { colors as defaultColors } from '@utils/constants/colors';
 import defaultSize from '@utils/constants/sizes';

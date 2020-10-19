@@ -4,6 +4,7 @@ import HomeScreen from '@containers/Home/HomeScreen';
 import configureApp from '@utils/constants/configureApp';
 import { ThemeProvider } from '@shared';
 import { lights } from '@utils/constants/base';
+import AppContainer from '@navigation/AppContainer';
 
 export default function AppContent() {
   return (
@@ -14,8 +15,8 @@ export default function AppContent() {
           ...lights,
         },
       }}>
-      <View style={{ flex: 1, borderColor: 'red', borderWidth: 5, justifyContent: 'center', alignItems: 'center' }}>
-        <HomeScreen />
+      <View style={{ flex: 1 }}>
+        <AppContainer />
       </View>
     </ThemeProvider>
   );
