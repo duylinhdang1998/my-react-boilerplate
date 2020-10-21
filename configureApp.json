@@ -1,6 +1,6 @@
 {
   "api": {
-    "baseUrl": "https://5abe1d53d4c5900014949e9c.mockapi.io/api",
+    "baseUrl": "http://api-v3.test.lotuslms.com/",
     "timeout": 30000
   },
   "settings": {

@@ -9,7 +9,7 @@ import rootSagas from './rootSagas';
 const persistConfig: PersistConfig<(keyof Reducers)[]> & { whitelist: (keyof Reducers)[] } = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: [],
+  whitelist: ['auth'],
   debug: true,
 };
 

@@ -1,9 +1,7 @@
-import counterReducer from '@containers/Home/slices/counterSlice';
-import todoListReducer from '@containers/Home/slices/todolistSlice';
+import authReducer from '@containers/Auth/slices/authSlice';
 
 const reducers = {
-  counter: counterReducer,
-  todolist: todoListReducer,
+  auth: authReducer,
 };
 
 export default reducers;

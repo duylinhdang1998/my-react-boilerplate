@@ -20,17 +20,25 @@ const axiosConfig = new ConfigureAxios({
     method: 'GET',
     baseURL: configureApp.api.baseUrl,
     timeout: configureApp.api.timeout,
-    paramsSerializer: qs.stringify,
+    paramsSerializer: (params) => {
+      const { auth } = store.getState();
+      return qs.stringify({
+        ...params,
+        _sand_domain: !!auth.domain ? auth.domain : params._sand_domain,
+        _sand_ajax: '1',
+        _sand_platform: '1',
+        _sand_app_name: 'vieted',
+        _sand_readmin: '1',
+        _sand_is_wan: false,
+      });
+    },
   },
   setAccessToken() {
     if (!store) {
       return '';
     }
-    return 'lotus lms';
-
-    //get accessToken from redux
-    // const { auth } = store.getState();
-    // return auth.isLoggedIn ? auth.data.accessToken : '';
+    const { auth } = store.getState();
+    return auth.isLoggedIn ? auth.token : '';
   },
   setRefreshToken() {
     if (!store) {
@@ -40,6 +48,14 @@ const axiosConfig = new ConfigureAxios({
     // Get refresh token
     // const { auth } = store.getState();
     // return auth.isLoggedIn ? auth.data.refreshToken : '';
+  },
+  setParams() {
+    const { auth } = store.getState();
+    return {
+      _sand_token: auth.token,
+      _sand_uid: auth.data?.id,
+      _sand_uiid: auth.data?.iid,
+    };
   },
 });
 
@@ -53,6 +69,15 @@ axiosConfig.accessToken({
     return isAppURL;
   },
 });
+
+axiosConfig.sandToken({
+  setCondition(config) {
+    const isAppURL = config?.url?.search(/^http/g) === -1;
+    return isAppURL;
+  },
+});
+
+axiosConfig.setFormData();
 
 // axiosConfig.refreshToken<RefreshTokenResponseData, AxiosData>({
 //   url: 'jwt/renew-access-token',

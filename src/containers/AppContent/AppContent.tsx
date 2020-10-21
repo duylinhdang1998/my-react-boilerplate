@@ -5,6 +5,7 @@ import configureApp from '@utils/constants/configureApp';
 import { ThemeProvider } from '@shared';
 import { lights } from '@utils/constants/base';
 import AppContainer from '@navigation/AppContainer';
+import { ReThemeProvider } from '@shared/themes/restyleTheme';
 
 export default function AppContent() {
   return (
@@ -15,9 +16,11 @@ export default function AppContent() {
           ...lights,
         },
       }}>
-      <View style={{ flex: 1 }}>
-        <AppContainer />
-      </View>
+      <ReThemeProvider>
+        <View style={{ flex: 1 }}>
+          <AppContainer />
+        </View>
+      </ReThemeProvider>
     </ThemeProvider>
   );
 }

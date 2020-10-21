@@ -4,6 +4,17 @@ interface Configure {
   configure: AxiosRequestConfig;
   setAccessToken: () => string;
   setRefreshToken: () => string;
+  setParams: () => Params;
+}
+
+interface DataForm<T> {
+  [key: string]: T;
+}
+
+interface Params {
+  _sand_token?: string;
+  _sand_uiid?: number;
+  _sand_uid?: string;
 }
 
 type Success<ResponseDataT> = (res: AxiosResponse<ResponseDataT>, originalRequest: AxiosRequestConfig) => void;
@@ -29,10 +40,12 @@ export default class ConfigureAxios {
   private axiosInstance: AxiosInstance;
   private setAccessToken: () => string;
   private setRefreshToken: () => string;
+  private setParams: () => Params;
 
-  public constructor({ configure, setAccessToken, setRefreshToken }: Configure) {
+  public constructor({ configure, setAccessToken, setRefreshToken, setParams }: Configure) {
     this.setAccessToken = setAccessToken;
     this.setRefreshToken = setRefreshToken;
+    this.setParams = setParams;
     this.axiosInstance = axios.create({ cancelToken: source.token, ...configure });
   }
 
@@ -53,6 +66,41 @@ export default class ConfigureAxios {
       if (setCondition(config) && !config.headers.Authorization) {
         if (!!accessToken) {
           config.headers.Authorization = `Bearer ${accessToken}`;
+        }
+      }
+      return config;
+    });
+  };
+
+  public setFormData = () => {
+    this.axiosInstance.interceptors.request.use((config) => {
+      if (!config.data) {
+        return config;
+      }
+      if (config.method === 'post') {
+        const formData = new FormData();
+        Object.keys(config.data as { [key: string]: any }).map((key: string) => {
+          formData.append(key, config.data[key]);
+        });
+        config.data = formData;
+      }
+      return config;
+    });
+  };
+
+  public sandToken = ({ setCondition }: AccessTokenParams) => {
+    this.axiosInstance.interceptors.request.use((config) => {
+      if (!config?.url) {
+        return config;
+      }
+      const params = this.setParams();
+      if (setCondition(config) && !!params._sand_token) {
+        if (!!params) {
+          config.params = {
+            _sand_token: params._sand_token,
+            _sand_uid: params._sand_uid,
+            _sand_uiid: params._sand_uiid,
+          };
         }
       }
       return config;
